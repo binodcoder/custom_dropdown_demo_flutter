@@ -47,31 +47,30 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
             ),
             if (isOpen)
               Expanded(
-                child: ListView(
+                child: ListView.builder(
+                  itemCount: numbers.length,
                   primary: true,
                   shrinkWrap: true,
-                  children: numbers
-                      .map(
-                        (e) => Container(
-                          decoration: BoxDecoration(color: selectOption == e.toString() ? Colors.pink : Colors.grey.shade300),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: InkWell(
-                              onTap: () {
-                                selectOption = e.toString();
-                                isOpen = false;
-                                setState(() {});
-                              },
-                              child: Text(
-                                e.toString(),
-                              ),
-                            ),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(color: selectOption == numbers[index].toString() ? Colors.pink : Colors.grey.shade300),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            selectOption = numbers[index].toString();
+                            isOpen = false;
+                            setState(() {});
+                          },
+                          child: Text(
+                            numbers[index].toString(),
                           ),
                         ),
-                      )
-                      .toList(),
+                      ),
+                    );
+                  },
                 ),
-              ),
+              )
           ],
         ),
       ),
